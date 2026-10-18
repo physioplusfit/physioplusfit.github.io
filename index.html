@@ -126,6 +126,21 @@ pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);borde
 .btn-row{display:flex;flex-wrap:wrap;gap:10px}
 .btn-row .ghost{color:var(--ink);border-color:var(--line)}
 
+/* payment */
+.pay-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center}
+.pay-steps{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:14px;counter-reset:p}
+.pay-steps li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:2px 14px;counter-increment:p}
+.pay-steps li::before{content:counter(p);grid-row:span 2;width:36px;height:36px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font:700 16px var(--f-display)}
+.pay-steps b{font:600 17px var(--f-display)}
+.pay-steps span{color:var(--muted);font-size:15px;line-height:1.6}
+.ipa-card{background:var(--navy);color:var(--navy-ink);border-radius:20px;padding:26px;display:grid;gap:14px;box-shadow:0 30px 60px -36px rgba(13,39,56,.6)}
+.ipa-top{display:flex;align-items:center;gap:10px;color:var(--navy-muted);font-size:14px;font-weight:500}
+.ipa-logo{width:34px;height:34px;border-radius:9px;background:#7FD0EA;color:var(--navy);display:grid;place-items:center;font:700 14px var(--f-display)}
+.ipa-addr{font:700 clamp(22px,4vw,30px) var(--f-display);direction:ltr;unicode-bidi:isolate;text-align:start;user-select:all;overflow-wrap:anywhere;padding:14px 16px;border:1.5px dashed var(--navy-line);border-radius:12px}
+.ipa-name{color:var(--navy-muted);font-size:15px}
+.ipa-card .ghost{color:var(--navy-ink);border-color:var(--navy-line)}
+.ipa-note{margin:0;font-size:13px;color:var(--navy-muted);line-height:1.6}
+
 /* profile */
 .profile{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
 .profile p{margin:0 0 14px;max-width:60ch}
@@ -149,7 +164,7 @@ pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);borde
 .foot{padding-block:28px 40px;border-top:1px solid var(--navy-line);margin-top:48px;color:var(--navy-muted);font-size:14px;display:grid;gap:8px}
 
 @media (max-width:880px){
-  .hero-grid,.form-wrap,.profile{grid-template-columns:minmax(0,1fr)}
+  .hero-grid,.form-wrap,.profile,.pay-grid{grid-template-columns:minmax(0,1fr)}
   .gonio{max-width:320px;order:-1}
   .grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -307,6 +322,30 @@ pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);borde
     </div>
   </section>
 
+  <section class="band pay" id="payment" aria-labelledby="h-pay">
+    <div class="inner pay-grid">
+      <div>
+        <p class="eyebrow" data-t="payE">Payment</p>
+        <h2 id="h-pay" data-t="payH">Simple, secure payment with InstaPay</h2>
+        <p class="sec-lead" data-t="payLead">There's no payment before we talk. After I review your case, we agree on your program and its fee on WhatsApp, and then you pay through InstaPay.</p>
+        <ol class="pay-steps">
+          <li><b data-t="p1h">Agree on your program</b><span data-t="p1p">I assess your case and confirm the program and fee with you.</span></li>
+          <li><b data-t="p2h">Pay with InstaPay</b><span data-t="p2p">Send the agreed amount to the InstaPay address on this page.</span></li>
+          <li><b data-t="p3h">Send the receipt</b><span data-t="p3p">Share a screenshot of the payment on WhatsApp, and your program starts.</span></li>
+        </ol>
+      </div>
+      <div class="ipa-card">
+        <div class="ipa-top"><span class="ipa-logo" aria-hidden="true">IP</span><span data-t="ipaLabel">InstaPay payment address</span></div>
+        <div class="ipa-addr" id="ipa">abuo07@instapay</div>
+        <div class="btn-row">
+          <button class="cta" type="button" id="copyIpa" data-t="copyIpa">Copy address</button>
+          <a class="cta ghost" id="receipt" href="https://wa.me/201018538022" target="_blank" rel="noopener" data-t="sendReceipt">Send receipt on WhatsApp</a>
+        </div>
+        <p class="ipa-note" data-t="ipaNote">Please pay only after we have agreed on your program, and only to this exact address.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="band process" aria-labelledby="h-about">
     <div class="inner profile">
       <div>
@@ -380,6 +419,10 @@ contactL:"أفضل طريقة للتواصل معك",cw:"رسالة واتساب
 consent:"أوافق على مشاركة هذه البيانات وتقاريري مع د. عبد الرحمن أيمن للتواصل معي بخصوص التأهيل. *",
 send:"جهّز رسالة واتساب",doneH:"رسالتك جاهزة",done1:"اضغط \"افتح واتساب\" وأرسل الرسالة.",done2:"ثم أرفق صور أو ملفات PDF لتقرير الرنين أو الأشعة في نفس المحادثة.",done3:"إذا لم يفتح واتساب، انسخ الرسالة وأرسلها إلى الرقم بالأسفل.",
 copy:"انسخ الرسالة",openWa:"افتح واتساب",copied:"تم النسخ",
+payE:"الدفع",payH:"دفع بسيط وآمن عبر إنستاباي",payLead:"لا يوجد دفع قبل أن نتحدث. بعد مراجعة حالتك، نتفق على برنامجك وتكلفته عبر واتساب، ثم تدفع عن طريق إنستاباي.",
+p1h:"نتفق على برنامجك",p1p:"أقيّم حالتك وأؤكد معك البرنامج والتكلفة.",p2h:"ادفع عبر إنستاباي",p2p:"حوّل المبلغ المتفق عليه إلى عنوان إنستاباي الموجود في هذه الصفحة.",p3h:"أرسل الإيصال",p3p:"شارك صورة التحويل على واتساب، ويبدأ برنامجك.",
+ipaLabel:"عنوان الدفع على إنستاباي",copyIpa:"انسخ العنوان",sendReceipt:"أرسل الإيصال على واتساب",
+ipaNote:"يُرجى الدفع فقط بعد الاتفاق على برنامجك، وإلى هذا العنوان تحديداً.",
 aboutE:"الملف المهني",aboutH:"د. عبد الرحمن أيمن",aboutSub:"أخصائي علاج طبيعي، ماجستير · تأهيل العظام والإصابات الرياضية",
 about1:"د. عبد الرحمن أيمن أخصائي علاج طبيعي متخصص في تأهيل العظام والإصابات الرياضية. حاصل على بكالوريوس العلاج الطبيعي والتأهيل من جامعة شرق المتوسط، وماجستير العلوم في العلاج الطبيعي والتأهيل من الجامعة الأوروبية في لفكة، حيث تناول بحثه العلاقة بين ثبات الجذع والرشاقة وإصابات الركبة لدى لاعبي كرة القدم.",
 about2:"عمل أخصائياً للعلاج الطبيعي في نادي لارناكا جنتشلر بيرليغي لكرة القدم، وتولى إدارة إصابات اللاعبين وبرامج الوقاية وقرارات العودة إلى الملعب. تجمع ممارسته السريرية بين التقييم الدقيق والعلاج اليدوي ووصف التمارين المبني على الأدلة، مع متابعة دقيقة حتى يصل كل مريض إلى هدفه الوظيفي.",
@@ -430,6 +473,10 @@ $("f").addEventListener("submit",e=>{
   $("done").hidden=false;
   $("done").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"nearest"});
 });
+$("copyIpa").onclick=async()=>{
+  try{await navigator.clipboard.writeText("abuo07@instapay");$("copyIpa").textContent=T("copied")}
+  catch(e){const r=document.createRange();r.selectNodeContents($("ipa"));const s=getSelection();s.removeAllRanges();s.addRange(r)}
+};
 $("copy").onclick=async()=>{
   try{await navigator.clipboard.writeText($("msg").textContent);$("copy").textContent=T("copied")}
   catch(e){const r=document.createRange();r.selectNodeContents($("msg"));const s=getSelection();s.removeAllRanges();s.addRange(r)}
